@@ -44,11 +44,14 @@ class App extends Component {
                     {
                         this.state.results ?
                             (this.state.results.map((entry, index) => (
-                    <Col id="searchResultsContainer" key={index} sm={6} md={4} xl={3}>
+                    <Col key={index} sm={6} md={4} xl={3}>
 
                         <Card>
                             <CardHeader>{entry.volumeInfo.title}</CardHeader>
-                            <CardImg top width="100%" src={entry.volumeInfo.imageLinks.smallThumbnail} alt="Card image cap" />
+                            <CardImg top width="100%" src={
+                                entry.volumeInfo.imageLinks ? entry.volumeInfo.imageLinks.smallThumbnail
+                                    : "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
+                            } alt="Card image cap" />
                             <CardBody>
                                 <CardText>
                                     Author(s): <em>{this.getAuthors(entry)}</em><br />

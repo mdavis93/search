@@ -14,16 +14,17 @@ class Search extends Component {
     // Use `fetch` to GET the query link, and return the result of `.json`.  Following the chain, we `then`
     // need to set our collection to the `.items` of the json response.
     doSearch(query) {
+        console.log(query);
         fetch(query)
             .then((response) => { return response.json()} )
-            .then( (json) => this.props.storeSearchResults(json.items));
+            .then( (json) => {this.props.storeSearchResults(json.items); console.log(json.items)});
     }
 
     // Here, we call `doSearch` and pass in the constructed query string, including
     // constraint, replacing all ` ` (space) characters with the `+` character.
     handleSubmit(e) {
         e.preventDefault();
-        this.doSearch(`${this.base_url}${this.state.constraint}${this.state.searchString}`.replace(/\s/g, "+"));
+        this.doSearch(`${this.base_url}${this.state.constraint}${this.state.searchString}`.replace(/\s/g, "+")+ "&startIndex=0&maxResults=40");
     }
 
     // Here we update the `state.constraint` to match the selected radio button
@@ -46,12 +47,12 @@ class Search extends Component {
                                    onChange={ (e) => this.handleTextChange(e) } />
                     </FormGroup>
                     <FormGroup>
-                        <Label for={"author"}>Author</Label>
-                        <Input type='radio' id='author' name='constraint' value='inauthor:' defaultChecked={true} onChange={ (e) => { this.handleRadioChange(e) }}/>
+                        <Label for={"title"}>Title</Label>
+                        <Input type='radio' id='title' name='constraint' value='intitle:' defaultChecked={true} onChange={ (e) => { this.handleRadioChange(e) }}/>{' '}
                     </FormGroup>
                     <FormGroup>
-                        <Label for={"title"}>Title</Label>
-                        <Input type='radio' id='title' name='constraint' value='intitle:' onChange={ (e) => { this.handleRadioChange(e) }}/>{' '}
+                        <Label for={"author"}>Author</Label>
+                        <Input type='radio' id='author' name='constraint' value='inauthor:' onChange={ (e) => { this.handleRadioChange(e) }}/>
                     </FormGroup>
                     <FormGroup>
                         <Label for={"category"}>Category</Label>
