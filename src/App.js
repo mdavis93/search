@@ -57,7 +57,7 @@ class App extends Component {
                                     Author(s): <em>{this.getAuthors(entry)}</em><br />
                                     Publisher: <em>{entry.volumeInfo.publisher}</em>
                                 </CardText>
-                                <a href={entry.volumeInfo.infoLink} target={"_blank"} className={"btn btn-primary btn-block"}>Test Link</a>
+                                <a href={entry.volumeInfo.infoLink} target={"_blank"} className={"btn btn-primary btn-block"}>More Info</a>
                             </CardBody>
                         </Card>
                     </Col>
