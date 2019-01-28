@@ -10,3 +10,14 @@ form label {
   font-size: 1.25rem;
   text-align: center;
 }
+
+.card {
+  transition: 0.1s;
+  position: relative;
+}
+.card:hover {
+  z-index: 2;
+  box-shadow: -5px 5px 15px 0 #555;
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}

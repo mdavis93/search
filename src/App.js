@@ -33,8 +33,8 @@ class App extends Component {
                 <Row>
                     <Col id="search">
                         <Jumbotron>
-                            <p>Find your next favorite book on GoogleBooks!</p>
-                            <Search runSearch = {(query) => {this.doSearch(query)}}
+                            <h1 className={"text-center"}>Find your next favorite book on GoogleBooks!</h1>
+                            <Search className="mr-3" runSearch = {(query) => {this.doSearch(query)}}
                                     storeSearchResults = {(results) => this.storeSearchResults(results)}
                             />
                         </Jumbotron>
