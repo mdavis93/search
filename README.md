@@ -8,7 +8,7 @@ This project demonstrates the usage of Google's [_GoogleBooks API_](https://deve
 
 This project uses an asynchronous call to Google's API to perform searching, and re-rendering of the results.  There are no page reloads, or URLs to remember.  Each result's _card_ will present an option to obtain "_More Info_" by opening a new tab to that book's URL.
 
-####Components:
+#### Components:
 - App.js
   - This is the main app, and contains the following methods
     * storeSearchResults(collection)
