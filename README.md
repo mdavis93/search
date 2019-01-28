@@ -1,68 +1,41 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# GoogleBooks Search
+----
+## About:
 
-## Available Scripts
+This project demonstrates the usage of Google's [_GoogleBooks API_](https://developers.google.com/books/docs/v1/) to search for books by _author_, _title_, or _category, and was scafolded via `create-react-app` [module](https://github.com/facebook/create-react-app).
 
-In the project directory, you can run:
+[reactstrap](https://reactstrap.github.io/) was used to make use of Bootstrap 4 on the front-end.  Each located book will display its title, a thumbnail, it's publisher, and author(s) via Bootstrap `Card` component.
 
-### `npm start`
+This project uses an asynchronous call to Google's API to perform searching, and re-rendering of the results.  There are no page reloads, or URLs to remember.  Each result's _card_ will present an option to obtain "_More Info_" by opening a new tab to that book's URL.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+####Components:
+- App.js
+  - This is the main app, and contains the following methods
+    * storeSearchResults(collection)
+      - Store the parsed response in `state` for later use
+    * getAuthors(book)
+      - Retrieves the list of authors for a given book, if present in the response object, otherwise displays "_Unknown_"
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- Search.js
+  - This component renders the search interface, and contains the following methods:
+    * doSearch(query)
+      - Sends the provided query to remote endpoint, calling `storeSearchResults` with the returned collection
+    * handleSubmit(e)
+      - Handles the process of _building_ the query, replacing all typed spaces (' ') with the plus ('+') character.
+      - Calls `.preventDefault()` to stop event propagation through the app.
+    * handleRadioChange(e)
+      - Sets a state variable according to which search constraint that is chosen (`title`, `author`, `category`).
+    * handleTextChange(e)
+      - Updates a state variable to match the value entered into the searchbox
+    
+## Installation:
 
-### `npm test`
+1. To install, clone the project into a project directory:
+    ```
+    mkdir googleBooksSearch && cd googleBooksSearch
+    git clone git@github.com:mdavis93/search.git
+    ```
+2. Run `npm install` to install dependencies.
+3. Run `npm start` and navigate to `http://localhost:3000` to view project
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+No other configuration is needed for this project

@@ -14,7 +14,6 @@ class Search extends Component {
     // Use `fetch` to GET the query link, and return the result of `.json`.  Following the chain, we `then`
     // need to set our collection to the `.items` of the json response.
     doSearch(query) {
-        console.log(query);
         fetch(query)
             .then((response) => { return response.json()} )
             .then( (json) => {this.props.storeSearchResults(json.items); console.log(json.items)});
