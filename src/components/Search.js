@@ -7,7 +7,7 @@ class Search extends Component {
         this.base_url = "https://www.googleapis.com/books/v1/volumes?q=";
         this.state = {
             searchString: '',
-            constraint: "inauthor:"
+            constraint: "intitle:"
         }
     }
 
