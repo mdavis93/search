@@ -16,7 +16,7 @@ class Search extends Component {
     doSearch(query) {
         fetch(query)
             .then((response) => { return response.json()} )
-            .then( (json) => {this.props.storeSearchResults(json.items); console.log(json.items)});
+            .then( (json) => {this.props.storeSearchResults(json.items)});
     }
 
     // Here, we call `doSearch` and pass in the constructed query string, including
