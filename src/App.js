@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 import Search from './components/Search';
-import {Container, Row, Col, Jumbotron, Card, CardHeader, CardText, CardImg, CardBody} from 'reactstrap';
+import {Container, Row, Col, Jumbotron, Card, CardHeader, CardText, CardImg, CardBody, CardFooter, CardDeck} from 'reactstrap';
+import Spinner from "reactstrap/es/Spinner";
 
 class App extends Component {
-    // Our constructor will store the results of each search in
-    // an array.  This could allow for future expansions to have
-    // access to the entire search results.
     constructor(props) {
         super(props);
         this.state = {
-            results: []
+            results: [],
+            searchActive: false
         }
     }
 
@@ -19,11 +18,50 @@ class App extends Component {
         this.setState({results: collection});
     }
 
+    debug_dump() {
+        console.log(this.state.results);
+    }
+
     getAuthors(book) {
         if (book.volumeInfo.authors) {
             return book.volumeInfo.authors.join(", ");
         } else {
-            return "Unknown";
+            return "Not Provided";
+        }
+    }
+
+    getPublisher(book) {
+        if (book.volumeInfo.publisher)
+            return book.volumeInfo.publisher;
+        else
+            return "Not Provided";
+    }
+
+    shortenTitle(title) {
+        if (title.length <= 17)
+            return title;
+        else {
+            title = title.substr(0, 17);
+            return title + " ...";
+        }
+    }
+
+    bookImage(book) {
+        if (book.volumeInfo.imageLinks)
+            return <img src={book.volumeInfo.imageLinks.thumbnail} alt={"Book Thumbnail Image"}/>;
+        else
+            return <img src={"https://placeholdit.imgix.net/~text?txtsize=33&txt=Image+Not+Available&w=318&h=180"} alt={"Image Not Available"} />;
+    }
+
+    isSearching(bool) {
+        this.setState({isSearching: bool});
+    }
+
+    showSpinner() {
+        if (this.state.searchActive) {
+            return <div id={"searchSpinner"}>
+                <Spinner type={"grow"} color={"success"}/>
+            </div>
         }
     }
 
@@ -36,33 +74,45 @@ class App extends Component {
                             <h1 className={"text-center"}>Find your next favorite book on GoogleBooks!</h1>
                             <Search className="mr-3" runSearch = {(query) => {this.doSearch(query)}}
                                     storeSearchResults = {(results) => this.storeSearchResults(results)}
+                                    debug = {this.debug_dump()}
                             />
                         </Jumbotron>
                     </Col>
                 </Row>
-                <Row>
-                    {
-                        this.state.results ?
-                            (this.state.results.map((entry, index) => (
-                    <Col key={index} sm={6} md={4} xl={3}>
+                <Row id={"searchResults"}>
+                    {this.showSpinner()}
+                    <CardDeck>
+                        {
+                            this.state.results ?
+                                (this.state.results.map((entry, index) => (
+                                    <Col key={index} sm={6} md={4}>
 
-                        <Card>
-                            <CardHeader>{entry.volumeInfo.title}</CardHeader>
-                            <CardImg top width="100%" src={
-                                entry.volumeInfo.imageLinks ? entry.volumeInfo.imageLinks.smallThumbnail
-                                    : "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
-                            } alt="Card image cap" />
-                            <CardBody>
-                                <CardText>
-                                    Author(s): <em>{this.getAuthors(entry)}</em><br />
-                                    Publisher: <em>{entry.volumeInfo.publisher}</em>
-                                </CardText>
-                                <a href={entry.volumeInfo.infoLink} target={"_blank"} className={"btn btn-primary btn-block"}>More Info</a>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    )))
-                    : "No Results To Display"}
+                                        <Card className={"h-100"}>
+                                            <CardHeader>{this.shortenTitle(entry.volumeInfo.title)}</CardHeader>
+                                            <div className={"row"}>
+                                                <div className={"col col-md-5"}>
+                                                    {this.bookImage(entry)}
+                                                </div>
+                                                <div className={"col col-md-7"}>
+                                                    <CardBody>
+                                                        <CardText>
+                                                            <strong>Author(s):</strong><br />
+                                                            <em>{this.getAuthors(entry)}</em><br />
+                                                            <br />
+                                                            <strong>Publisher:</strong><br />
+                                                            <em>{this.getPublisher(entry)}</em>
+                                                        </CardText>
+                                                    </CardBody>
+                                                </div>
+                                            </div>
+                                            <CardFooter>
+                                                <a href={entry.volumeInfo.infoLink} target={"_blank"} className={"btn btn-primary btn-block"}>More Info</a>
+                                            </CardFooter>
+                                        </Card>
+                                    </Col>
+                                )))
+                                : "No Results To Display"}
+                    </CardDeck>
                 </Row>
             </Container>
         );

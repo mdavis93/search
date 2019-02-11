@@ -11,13 +11,43 @@ form label {
   text-align: center;
 }
 
-.card {
-  transition: 0.1s;
-  position: relative;
+
+
+#searchResults{
+  justify-content: space-evenly;
 }
-.card:hover {
-  z-index: 2;
-  box-shadow: -5px 5px 15px 0 #555;
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
+
+.card-deck > div {
+  padding-bottom: 1.25rem;
+}
+
+.card-body {
+  height: 100%;
+}
+
+.card .row {
+  height: 100%;
+}
+
+.card img {
+  padding: 10px;
+}
+
+
+@media(max-width:992px) {
+
+}
+
+@media(min-width:993px) {
+  .card {
+    transition: 0.1s;
+    position: relative;
+  }
+
+  .card:hover {
+    z-index: 2;
+    box-shadow: -5px 5px 15px 0 #555;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
 }

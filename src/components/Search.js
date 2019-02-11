@@ -7,31 +7,26 @@ class Search extends Component {
         this.base_url = "https://www.googleapis.com/books/v1/volumes?q=";
         this.state = {
             searchString: '',
-            constraint: "intitle:"
+            constraint: "intitle:",
+            dropdownOpen: false
         }
     }
 
-    // Use `fetch` to GET the query link, and return the result of `.json`.  Following the chain, we `then`
-    // need to set our collection to the `.items` of the json response.
-    doSearch(query) {
-        fetch(query)
+    doSearch(query_url) {
+        fetch(query_url)
             .then((response) => { return response.json()} )
             .then( (json) => {this.props.storeSearchResults(json.items)});
     }
 
-    // Here, we call `doSearch` and pass in the constructed query string, including
-    // constraint, replacing all ` ` (space) characters with the `+` character.
     handleSubmit(e) {
         e.preventDefault();
         this.doSearch(`${this.base_url}${this.state.constraint}${this.state.searchString}`.replace(/\s/g, "+")+ "&startIndex=0&maxResults=40");
     }
 
-    // Here we update the `state.constraint` to match the selected radio button
     handleRadioChange(e) {
         this.setState({constraint: e.target.value});
     }
 
-    // Here we update the `state.searchString` to match the content of the textbox.
     handleTextChange(e) {
         this.setState({searchString: e.target.value});
     }
