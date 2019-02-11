@@ -17,12 +17,12 @@ form label {
   justify-content: space-evenly;
 }
 
-.card-deck > div {
-  padding-bottom: 1.25rem;
+.search-form {
+  text-align: center;
 }
 
-.card-body {
-  height: 100%;
+.card-deck > div {
+  padding-bottom: 1.25rem;
 }
 
 .card .row {
@@ -35,7 +35,10 @@ form label {
 
 
 @media(max-width:992px) {
-
+  #submitSearch {
+    width: 100%;
+    height: 38px;
+  }
 }
 
 @media(min-width:993px) {
@@ -49,5 +52,16 @@ form label {
     box-shadow: -5px 5px 15px 0 #555;
     -webkit-transform: scale(1.2);
     transform: scale(1.2);
+  }
+
+  .search-form .input-group {
+    margin: 0 auto;
+    max-width: 50vw;
+  }
+
+  #submitSearch {
+    /* 77 x 38 */
+    width: 77px;
+    height: 38px;
   }
 }

@@ -39,3 +39,15 @@ This project uses an asynchronous call to Google's API to perform searching, and
 3. Run `npm start` and navigate to `http://localhost:3000` to view project
 
 No other configuration is needed for this project
+
+## Change Log
+
+- 02/09/2019
+  - Corrected CSS to ensure all Cards created in the search are of the same height.
+  - Added a padding of `1.25rem` to the bottom of each `Card` by CSS rule `.card-deck > div` to select all `div` descendants of the `card-deck` class.
+  - Removed `:hover` event from smaller screen sizes through media queries.
+  - Reduced the size of book image from `100%`on larger screens
+  - Re-worked search from: removed RadioBoxes, replaced with drop-down select box
+  - Modified `<SEARCH>` button to change to a spinner while search is active
+  - Reduced the size of the book cover image
+  

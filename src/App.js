@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
 import Search from './components/Search';
-import {Container, Row, Col, Jumbotron, Card, CardHeader, CardText, CardImg, CardBody, CardFooter, CardDeck} from 'reactstrap';
-import Spinner from "reactstrap/es/Spinner";
+import {Container, Row, Col, Jumbotron, Card, CardHeader, CardText, CardBody, CardFooter, CardDeck} from 'reactstrap';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             results: [],
-            searchActive: false
         }
     }
 
     // Let's store the search results
     storeSearchResults(collection) {
         this.setState({results: collection});
-    }
-
-    debug_dump() {
-        console.log(this.state.results);
     }
 
     getAuthors(book) {
@@ -37,6 +31,13 @@ class App extends Component {
             return "Not Provided";
     }
 
+    getPageCount(book) {
+        if (book.volumeInfo.pageCount)
+            return book.volumeInfo.pageCount;
+        else
+            return "Not Provided";
+    }
+
     shortenTitle(title) {
         if (title.length <= 17)
             return title;
@@ -48,21 +49,9 @@ class App extends Component {
 
     bookImage(book) {
         if (book.volumeInfo.imageLinks)
-            return <img src={book.volumeInfo.imageLinks.thumbnail} alt={"Book Thumbnail Image"}/>;
+            return <img src={book.volumeInfo.imageLinks.thumbnail} alt={"Book Thumbnail"}/>;
         else
-            return <img src={"https://placeholdit.imgix.net/~text?txtsize=33&txt=Image+Not+Available&w=318&h=180"} alt={"Image Not Available"} />;
-    }
-
-    isSearching(bool) {
-        this.setState({isSearching: bool});
-    }
-
-    showSpinner() {
-        if (this.state.searchActive) {
-            return <div id={"searchSpinner"}>
-                <Spinner type={"grow"} color={"success"}/>
-            </div>
-        }
+            return <img src={"https://books.google.com/googlebooks/images/no_cover_thumb.gif"} width="120" height="200" alt={"No Cover Art Thumbnail"} />;
     }
 
     render() {
@@ -74,18 +63,16 @@ class App extends Component {
                             <h1 className={"text-center"}>Find your next favorite book on GoogleBooks!</h1>
                             <Search className="mr-3" runSearch = {(query) => {this.doSearch(query)}}
                                     storeSearchResults = {(results) => this.storeSearchResults(results)}
-                                    debug = {this.debug_dump()}
                             />
                         </Jumbotron>
                     </Col>
                 </Row>
                 <Row id={"searchResults"}>
-                    {this.showSpinner()}
                     <CardDeck>
                         {
                             this.state.results ?
                                 (this.state.results.map((entry, index) => (
-                                    <Col key={index} sm={6} md={4}>
+                                    <Col key={index} md={6} lg={4}>
 
                                         <Card className={"h-100"}>
                                             <CardHeader>{this.shortenTitle(entry.volumeInfo.title)}</CardHeader>
@@ -100,7 +87,7 @@ class App extends Component {
                                                             <em>{this.getAuthors(entry)}</em><br />
                                                             <br />
                                                             <strong>Publisher:</strong><br />
-                                                            <em>{this.getPublisher(entry)}</em>
+                                                            <em>{this.getPublisher(entry)}</em><br />
                                                         </CardText>
                                                     </CardBody>
                                                 </div>
@@ -111,7 +98,7 @@ class App extends Component {
                                         </Card>
                                     </Col>
                                 )))
-                                : "No Results To Display"}
+                                : "No Books Were Found With The Given Criteria."}
                     </CardDeck>
                 </Row>
             </Container>
