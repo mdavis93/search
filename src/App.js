@@ -31,20 +31,8 @@ class App extends Component {
             return "Not Provided";
     }
 
-    getPageCount(book) {
-        if (book.volumeInfo.pageCount)
-            return book.volumeInfo.pageCount;
-        else
-            return "Not Provided";
-    }
-
-    shortenTitle(title) {
-        if (title.length <= 17)
-            return title;
-        else {
-            title = title.substr(0, 17);
-            return title + " ...";
-        }
+    shortenTitle(title, len = 17) {
+            return title + "...";
     }
 
     bookImage(book) {
@@ -60,7 +48,7 @@ class App extends Component {
                 <Row>
                     <Col id="search">
                         <Jumbotron>
-                            <h1 className={"text-center"}>Find your next favorite book on GoogleBooks!</h1>
+                            <h1 className={"text-center"}>Find your favorite books on GoogleBooks!</h1>
                             <Search className="mr-3" runSearch = {(query) => {this.doSearch(query)}}
                                     storeSearchResults = {(results) => this.storeSearchResults(results)}
                             />
@@ -84,7 +72,7 @@ class App extends Component {
                                                     <CardBody>
                                                         <CardText>
                                                             <strong>Author(s):</strong><br />
-                                                            <em>{this.getAuthors(entry)}</em><br />
+                                                            <em>{App.getAuthors(entry)}</em><br />
                                                             <br />
                                                             <strong>Publisher:</strong><br />
                                                             <em>{this.getPublisher(entry)}</em><br />
