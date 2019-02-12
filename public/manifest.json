@@ -1,11 +1,71 @@
 {
-  "short_name": "GoogleBook Search",
-  "name": "Search for book on GoogleBooks!",
+  "short_name": "Search GoogleBooks",
+  "name": "Search GoogleBooks using Google API",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "/assets/favicons/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-512-171409.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-152-171409.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-144-171409.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-120-171409.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-114-171409.png",
+      "sizes": "114x114",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-72-171409.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-64-171409.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-57-171409.png",
+      "sizes": "57x57",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-48-171409.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-32-171409.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-24-171409.png",
+      "sizes": "24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/book-stack---pile-de-livres-16-171409.png",
+      "sizes": "16x16",
+      "type": "image/png"
     }
   ],
   "start_url": ".",

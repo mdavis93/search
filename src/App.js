@@ -72,7 +72,7 @@ class App extends Component {
                                                     <CardBody>
                                                         <CardText>
                                                             <strong>Author(s):</strong><br />
-                                                            <em>{App.getAuthors(entry)}</em><br />
+                                                            <em>{this.getAuthors(entry)}</em><br />
                                                             <br />
                                                             <strong>Publisher:</strong><br />
                                                             <em>{this.getPublisher(entry)}</em><br />
