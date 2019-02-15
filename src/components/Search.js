@@ -31,12 +31,12 @@ class Search extends Component {
 
     handleSearchSubmit(e) {
         e.preventDefault();
+        document.getElementById("searchString").blur();
         if (this.state.searchType !== "inauthor" &&
             this.state.searchType !== "intitle" &&
             this.state.searchType !== "subject") {
             alert("Please select a search type from the drop-down.");
         } else {
-            /*document.getElementById("searchResults").innerHTML = "";*/
             this.setState({searching: true});
             this.doSearch(`${this.base_url}${this.state.searchType}:${this.state.searchString}`.replace(/\s/g, "+") + "&startIndex=0&maxResults=40");
         }
@@ -107,5 +107,3 @@ class Search extends Component {
 }
 
 export default Search;
-
-// 82, 89, 90, 91, 95

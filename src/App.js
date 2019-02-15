@@ -11,7 +11,6 @@ class App extends Component {
         }
     }
 
-    // Let's store the search results
     storeSearchResults(collection) {
         this.setState({results: collection});
     }

@@ -4,7 +4,6 @@ import { act } from 'react-dom/test-utils';
 import Search from '../../components/Search';
 import {Spinner} from 'reactstrap';
 import {shallow, mount} from "enzyme";
-import App from "../App.test";
 
 let container, renderedComponent, searchInstance;
 
@@ -59,17 +58,4 @@ describe("Search Component", () => {
             <Spinner color={"dark"} size={"sm"} />
         );
     });
-
-    // it('renders the correct menu options for searchType', () => {
-    //     act(() => {
-    //         ReactDOM.render(<Search />, container);
-    //     });
-    //     let choices = container.querySelectorAll(".dropdown-item");
-    //     const expectedChoicesArray = ["intitle", "inauthor", "subject"];
-    //     let actualChoicesArray = [];
-    //     for(let i = 0; i < choices.length; i++) {
-    //         actualChoicesArray.push(choices[i].value);
-    //     }
-    //     expect(actualChoicesArray).toEqual(expectedChoicesArray);
-    // })
 });
