@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button, Form, FormGroup, Spinner, Input, DropdownMenu, InputGroup, InputGroupButtonDropdown, DropdownItem, DropdownToggle} from "reactstrap";
+import {fetchSearchResults} from "../api/apiCalls";
 
 class Search extends Component {
     constructor(props) {
@@ -14,20 +15,25 @@ class Search extends Component {
             searchType: "intitle",
             searching: false,
             dropdownOpen: false
-        }
+        };
     }
 
     doSearch(query_url) {
-        fetch(query_url)
-            .then((response) => { return response.json()} )
-            .then( (json) => {this.props.storeSearchResults(json.items)})
-            .then( () => {this.setState({searching: false})} )
+        fetchSearchResults(query_url)
+            .then((json) => {
+                this.props.storeSearchResults(json.items)
+            })
+            .then(() => {
+                this.setState({searching: false})
+            })
             .catch((error) => console.log(error));
     }
 
     handleSearchSubmit(e) {
         e.preventDefault();
-        if (this.state.searchType !== "inauthor" && this.state.searchType !== "intitle" && this.state.searchType !== "subject") {
+        if (this.state.searchType !== "inauthor" &&
+            this.state.searchType !== "intitle" &&
+            this.state.searchType !== "subject") {
             alert("Please select a search type from the drop-down.");
         } else {
             /*document.getElementById("searchResults").innerHTML = "";*/
@@ -41,7 +47,6 @@ class Search extends Component {
     }
 
     handleDropDownSelectionChange(e) {
-        document.getElementById("submitSearch").classList.remove("disabled");
         this.setState({searchType: e.target.value});
     }
 
@@ -102,3 +107,5 @@ class Search extends Component {
 }
 
 export default Search;
+
+// 82, 89, 90, 91, 95

@@ -32,7 +32,7 @@ class App extends Component {
     }
 
     shortenTitle(title, len = 17) {
-            return title + "...";
+        return title.length <= len ? title : `${title.substr(0, len)}...`
     }
 
     bookImage(book) {
@@ -49,7 +49,7 @@ class App extends Component {
                     <Col id="search">
                         <Jumbotron>
                             <h1 className={"text-center"}>Find your favorite books on GoogleBooks!</h1>
-                            <Search className="mr-3" runSearch = {(query) => {this.doSearch(query)}}
+                            <Search className="mr-3"
                                     storeSearchResults = {(results) => this.storeSearchResults(results)}
                             />
                         </Jumbotron>

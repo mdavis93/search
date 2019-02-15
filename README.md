@@ -41,13 +41,28 @@ This project uses an asynchronous call to Google's API to perform searching, and
 No other configuration is needed for this project
 
 ## Change Log
+- 02/13/2019
+  - Added Enzyme for Component Testing
+  - House cleaning for the UI
+  - Improve testing coverage
+  - Separated larger methods into multiple, smaller, methods.
+- 02/12/2019
+  - Updated to `React v16.8.1`
+  - Updated Page Title and Favicon
+  - Changed default search type to `Title`
 
-- 02/09/2019
+- 02/11/2019
+  - Added method to shorten book titles greater than 17 characters
+    - Titles that exceed this length will be truncated and appended with an ellipsis.
+  - Refactored some function names to more clearly reflect their intended purpose.
+  
+
+- 02/10/2019
   - Corrected CSS to ensure all Cards created in the search are of the same height.
   - Added a padding of `1.25rem` to the bottom of each `Card` by CSS rule `.card-deck > div` to select all `div` descendants of the `card-deck` class.
   - Removed `:hover` event from smaller screen sizes through media queries.
   - Reduced the size of book image from `100%`on larger screens
-  - Re-worked search from: removed RadioBoxes, replaced with drop-down select box
+  - Re-worked search form: removed RadioBoxes, replaced with drop-down select box
   - Modified `<SEARCH>` button to change to a spinner while search is active
   - Reduced the size of the book cover image
   

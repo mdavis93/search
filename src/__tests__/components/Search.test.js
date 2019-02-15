@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 import { act } from 'react-dom/test-utils';
 import Search from '../../components/Search';
-import App from '../../App';
+import {Spinner} from 'reactstrap';
+import {shallow, mount} from "enzyme";
+import App from "../App.test";
 
-let container;
+let container, renderedComponent, searchInstance;
 
 beforeEach(() => {
+    renderedComponent = shallow(<Search />);
+    searchInstance = renderedComponent.instance();
     container = document.createElement('div');
     document.body.appendChild(container);
 });
@@ -25,44 +28,48 @@ describe("Search Component", () => {
         ReactDOM.unmountComponentAtNode(div);
     });
 
-    it('renders a dropdown button to select search type',() => {
+    it('renders the search form and components',() => {
         act(() => {
            ReactDOM.render(<Search />, container);
         });
-        const searchTypeSelectorButton = container.querySelector(".dropdown-toggle");
-        expect(searchTypeSelectorButton.textContent).toContain("Title");
+        expect(container.querySelector(".dropdown-toggle").textContent).toContain("Title");
+        expect(container.querySelector("#searchString")).not.toBeNull();
+        expect(container.querySelector("form")).not.toBeNull();
+        expect(container.querySelectorAll(".dropdown-item").length).toBe(3);
+        expect(container.querySelector("#submitSearch")).not.toBeNull();
     });
 
-    it('renders a textbox to enter query terms', () => {
-        act(() => {
-            ReactDOM.render(<Search/>, container);
-        });
-        const searchQueryTextBox = container.querySelector("#searchString");
-        expect(searchQueryTextBox).not.toBeNull();
+    it('updates `state.searchString` as text is entered', () => {
+        searchInstance.handleSearchTextChange({target: { value: "New Search"} });
+        expect(renderedComponent.state('searchString')).toBe("New Search");
     });
-});
 
-describe("Performing a Search", () => {
-
-    it('should do something', () => {
-        act(() => {
-            ReactDOM.render(<App/>, container);
-        });
-        const test1 = ReactTestUtils.renderIntoDocument(<App/>);
-        const test = ReactTestUtils.renderIntoDocument(<Search/>);
-        const searchButton = container.querySelector("#submitSearch");
-        const searchTextBox = container.querySelector("#searchString");
-
-        searchTextBox.value = "Eloquent Javascript";
-        act(() => {
-            searchButton.dispatchEvent(new MouseEvent('click', {bubbles: true}));
-        });
-        fetch("https://www.googleapis.com/books/v1/volumes?q=intitle:Eloquent+Javascript")
-            .then((response) => {
-                console.log("DEBUG:");
-                console.log(response.json().items.length + " :: " + test1.state.items.length);
-                expect(test.state.searchType).toBe("intitle");
-                expect(false).toBe(true);
-            });
+    it('gets and sets search type correctly', () => {
+        expect(searchInstance.getSearchType()).toBe("Title");
+        searchInstance.handleDropDownSelectionChange({target: {value: "subject"} } );
+        expect(searchInstance.getSearchType()).toBe("Subject");
+        searchInstance.handleDropDownSelectionChange({target: {value: "inauthor"} } );
+        expect(searchInstance.getSearchType()).toBe("Author");
     });
+
+    it('displays a spinner while searching',() => {
+        expect(searchInstance.searchButtonText()).toBe("Submit");
+        renderedComponent.setState({searching: true});
+        expect(searchInstance.searchButtonText()).toEqual(
+            <Spinner color={"dark"} size={"sm"} />
+        );
+    });
+
+    // it('renders the correct menu options for searchType', () => {
+    //     act(() => {
+    //         ReactDOM.render(<Search />, container);
+    //     });
+    //     let choices = container.querySelectorAll(".dropdown-item");
+    //     const expectedChoicesArray = ["intitle", "inauthor", "subject"];
+    //     let actualChoicesArray = [];
+    //     for(let i = 0; i < choices.length; i++) {
+    //         actualChoicesArray.push(choices[i].value);
+    //     }
+    //     expect(actualChoicesArray).toEqual(expectedChoicesArray);
+    // })
 });
