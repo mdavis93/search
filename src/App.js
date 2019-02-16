@@ -36,7 +36,7 @@ class App extends Component {
 
     bookImage(book) {
         if (book.volumeInfo.imageLinks)
-            return <img src={book.volumeInfo.imageLinks.thumbnail} alt={"Book Thumbnail"}/>;
+            return <img src={book.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")} alt={"Book Thumbnail"}/>;
         else
             return <img src={"https://books.google.com/googlebooks/images/no_cover_thumb.gif"} width="120" height="200" alt={"No Cover Art Thumbnail"} />;
     }
